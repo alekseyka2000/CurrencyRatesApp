@@ -1,4 +1,4 @@
-package com.test.data
+package com.test.data.api
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -9,9 +9,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CurrencyRatesDataSourceImpl @Inject constructor(
+class CurrencyApiDataSourceImpl @Inject constructor(
     applicationContext: Context
-) : CurrencyRatesDataSource {
+) : CurrencyApiDataSource {
 
     companion object {
         private const val apiBaseUrl = "https://api.apilayer.com/exchangerates_data/"
@@ -29,10 +29,10 @@ class CurrencyRatesDataSourceImpl @Inject constructor(
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
-            .create(CurrencyRatesApi::class.java)
+            .create(CurrencyApi::class.java)
     }
 
-    override suspend fun getAvailableCurrencies(base: String) {
+    override suspend fun getAvailableCurrencies() {
         currencyRatesApi.getAvailableCurrencies(apiKey)
     }
 
