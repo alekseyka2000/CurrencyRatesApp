@@ -2,19 +2,16 @@ package com.test.data.api
 
 import android.content.Context
 import android.content.pm.PackageManager
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class CurrencyApiDataSourceImpl @Inject constructor(
-    applicationContext: Context
+    applicationContext: Context,
+    currencyApiService: CurrencyApiService
 ) : CurrencyApiDataSource {
 
     companion object {
-        private const val apiBaseUrl = "https://api.apilayer.com/exchangerates_data/"
         private const val apiKeyMetaDataName = "keyValue"
     }
 
@@ -23,20 +20,11 @@ class CurrencyApiDataSourceImpl @Inject constructor(
 
     private val apiKey = appInfo.metaData[apiKeyMetaDataName].toString()
 
-    private val currencyRatesApi by lazy {
-        Retrofit.Builder()
-            .baseUrl(apiBaseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .build()
-            .create(CurrencyApi::class.java)
-    }
+    private val currencyApi = currencyApiService.getCurrencyRatesApi()
 
-    override suspend fun getAvailableCurrencies() {
-        currencyRatesApi.getAvailableCurrencies(apiKey)
-    }
+    override suspend fun getAvailableCurrencies() = currencyApi.getAvailableCurrencies(apiKey)
 
     override suspend fun getCurrencyRates(base: String) {
-        currencyRatesApi.getCurrencyRates(apiKey, base)
+        currencyApi.getCurrencyRates(apiKey, base)
     }
 }

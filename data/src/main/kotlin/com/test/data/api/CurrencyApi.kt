@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface CurrencyApi {
 
-    @GET("latest")
+    @GET("symbols")
     suspend fun getAvailableCurrencies(@Query("apikey") apiKey: String): AvailableCurrencyDto
 
     @GET("latest")
