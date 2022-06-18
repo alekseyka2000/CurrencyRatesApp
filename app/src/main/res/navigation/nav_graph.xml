@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/popularCurrencyRatesFragment">
+
+    <fragment
+        android:id="@+id/popularCurrencyRatesFragment"
+        android:name="com.test.currencyratesapp.PopularCurrencyRatesFragment"
+        android:label="PopularCurrencyRatesFragment" >
+        <action
+            android:id="@+id/action_popularCurrencyRatesFragment_to_favoriteCurrencyRatesFragment"
+            app:destination="@id/favoriteCurrencyRatesFragment" />
+        <action
+            android:id="@+id/action_popularCurrencyRatesFragment_to_currencyRatesFilterFragment"
+            app:destination="@id/currencyRatesFilterFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteCurrencyRatesFragment"
+        android:name="com.test.currencyratesapp.FavoriteCurrencyRatesFragment"
+        android:label="FavoriteCurrencyRatesFragment" >
+        <action
+            android:id="@+id/action_favoriteCurrencyRatesFragment_to_popularCurrencyRatesFragment"
+            app:destination="@id/popularCurrencyRatesFragment" />
+        <action
+            android:id="@+id/action_favoriteCurrencyRatesFragment_to_currencyRatesFilterFragment"
+            app:destination="@id/currencyRatesFilterFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/currencyRatesFilterFragment"
+        android:name="com.test.currencyratesapp.CurrencyRatesFilterFragment"
+        android:label="CurrencyRatesFilterFragment" />
+</navigation>

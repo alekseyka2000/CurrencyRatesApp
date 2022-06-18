@@ -15,7 +15,7 @@
         android:theme="@style/Theme.CurrencyRatesApp"
         tools:ignore="AllowBackup">
         <activity
-            android:name=".PopularCurrencyRatesActivity"
+            android:name=".CurrencyRatesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
