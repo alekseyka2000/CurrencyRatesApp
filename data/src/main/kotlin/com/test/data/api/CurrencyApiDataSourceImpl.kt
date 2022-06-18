@@ -24,7 +24,5 @@ class CurrencyApiDataSourceImpl @Inject constructor(
 
     override suspend fun getAvailableCurrencies() = currencyApi.getAvailableCurrencies(apiKey)
 
-    override suspend fun getCurrencyRates(base: String) {
-        currencyApi.getCurrencyRates(apiKey, base)
-    }
+    override suspend fun getCurrencyRates(base: String) = currencyApi.getCurrencyRates(apiKey, base)
 }

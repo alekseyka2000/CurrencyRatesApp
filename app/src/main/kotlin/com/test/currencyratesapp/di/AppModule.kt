@@ -49,6 +49,7 @@ object AppModule {
         ): CurrencyApiDataSource =
         CurrencyApiDataSourceImpl(appContext, currencyApiService)
 
+    @Singleton
     @Provides
     fun provideCurrencyGateway(
         dataSource: CurrencyApiDataSource,

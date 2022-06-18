@@ -15,8 +15,8 @@ class FavoriteCurrencyRatesViewModel @Inject constructor(
     }
 
     override fun wasCurrencySelected(position: Int) {
-        currencyList[position]
-        currencyList[position].name
+        currencyNameList[position]
+        currencyNameList[position].name
 
     }
 }

@@ -1,6 +1,6 @@
 package com.test.domain
 
-import com.test.domain.entity.CurrencyModel
+import com.test.domain.entity.CurrencyNameModel
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,7 +17,7 @@ class GetCurrenciesUseCaseImpl @Inject constructor(
 
     private val necessaryCurrencyBaseList = listOf("USD", "EUR", "RUB", "BYN")
 
-    override suspend fun getCurrenciesList(): List<CurrencyModel> {
+    override suspend fun getCurrenciesList(): List<CurrencyNameModel> {
         return currencyGateway.getAvailableCurrencies()
             .filter { necessaryCurrencyBaseList.contains(it.base.uppercase()) }
     }

@@ -2,20 +2,19 @@ package com.test.currencyratesapp.presentation
 
 import androidx.lifecycle.ViewModel
 import com.test.domain.GetCurrenciesUseCase
-import com.test.domain.entity.CurrencyModel
+import com.test.domain.entity.CurrencyNameModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.util.*
 
 abstract class BaseCurrencyRatesViewModel(
     private val getCurrenciesUseCase: GetCurrenciesUseCase
 ) : ViewModel() {
 
-    protected lateinit var currencyList: List<CurrencyModel>
+    protected lateinit var currencyNameList: List<CurrencyNameModel>
     private val currencyNameListMutableStateFlow = MutableStateFlow<List<String>>(emptyList())
     val currencyNameListStateFlow: StateFlow<List<String>> = currencyNameListMutableStateFlow
 
@@ -24,8 +23,8 @@ abstract class BaseCurrencyRatesViewModel(
     protected fun getCurrencyNames() {
         val scope = CoroutineScope(Job() + Dispatchers.IO)
         scope.launch {
-            currencyList = getCurrenciesUseCase.getCurrenciesList()
-            currencyNameListMutableStateFlow.value = currencyList.map { it.name }
+            currencyNameList = getCurrenciesUseCase.getCurrenciesList()
+            currencyNameListMutableStateFlow.value = currencyNameList.map { it.name }
         }
     }
 }

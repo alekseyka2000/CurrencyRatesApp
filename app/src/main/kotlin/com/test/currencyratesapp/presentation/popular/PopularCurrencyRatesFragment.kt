@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.test.currencyratesapp.R
 import com.test.currencyratesapp.presentation.BaseCurrencyRatesFragment
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.scopes.FragmentScoped
 
 /**
  * Fragment for show popular rates for selected currency

@@ -11,12 +11,12 @@ interface CurrenciesDao {
     @Query("SELECT currency_base, name FROM Currency")
     fun getCurrencies(): List<Name>
 
-    @Query("SELECT * FROM Currency WHERE currency_base = :base")
-    fun getCurrencyRates(base: String): List<Currency>
+    @Query("SELECT FIRST (*) FROM Currency WHERE currency_base = :base")
+    fun getCurrencyRates(base: String): Currency
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(foodItem: Currency)
+    suspend fun insert(currencyItem: Currency)
 
     @Delete
-    suspend fun delete(foodItem: Currency)
+    suspend fun delete(currencyItem: Currency)
 }

@@ -1,6 +1,6 @@
 package com.test.domain.entity
 
-data class CurrencyModel(
+data class CurrencyNameModel(
 val base: String,
 val name: String
 )

@@ -1,4 +1,4 @@
-package com.test.data.api
+package com.test.data.api.deserializer
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
