@@ -1,19 +1,24 @@
 package com.test.domain
 
 import com.test.domain.entity.CurrencyModel
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
+
+/**
+ * Use case provide available currencies for show rates
+ *
+ *  @author YarakhovichAA
+ */
 
 @Singleton
 class GetCurrenciesUseCaseImpl @Inject constructor(
     private val currencyGateway: CurrencyGateway
-): GetCurrenciesUseCase {
+) : GetCurrenciesUseCase {
 
     private val necessaryCurrencyBaseList = listOf("USD", "EUR", "RUB", "BYN")
 
-    override suspend fun getCurrenciesList(): List<CurrencyModel>{
+    override suspend fun getCurrenciesList(): List<CurrencyModel> {
         return currencyGateway.getAvailableCurrencies()
-            .sortedBy { necessaryCurrencyBaseList.contains(it.base) }
+            .filter { necessaryCurrencyBaseList.contains(it.base.uppercase()) }
     }
 }

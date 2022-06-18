@@ -1,4 +1,4 @@
-package com.test.currencyratesapp
+package com.test.currencyratesapp.presentation.popular
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,23 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Spinner
-import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import com.test.currencyratesapp.R
+import com.test.currencyratesapp.presentation.BaseCurrencyRatesFragment
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.scopes.FragmentScoped
 
 /**
- * Fragment for show favorite rates for selected currency
+ * Fragment for show popular rates for selected currency
  *
  *  @author YarakhovichAA
  */
 
-class FavoriteCurrencyRatesFragment : Fragment() {
+@AndroidEntryPoint
+class PopularCurrencyRatesFragment : BaseCurrencyRatesFragment() {
 
+    override val viewModel: PopularCurrencyRatesViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_favorite_currency_rates, container, false)
+        return inflater.inflate(R.layout.fragment_popular_currency_rates, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,15 +35,13 @@ class FavoriteCurrencyRatesFragment : Fragment() {
         initViews(view)
     }
 
-    private fun initViews(view: View){
+    private fun initViews(view: View) {
         val filterIcon = view.findViewById<ImageView>(R.id.filterIcon)
         val currenciesSpinner = view.findViewById<Spinner>(R.id.currenciesSpinner)
         val rateList = view.findViewById<RecyclerView>(R.id.rateList)
 
-        filterIcon.setOnClickListener{
-            (parentFragment?.parentFragment as NavHostFragment).setNotCheckableBottomNavigationView()
-            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-                .navigate(R.id.action_favoriteCurrencyRatesFragment_to_currencyRatesFilterFragment)
-        }
+        setFilterImageClickListener(filterIcon)
+        setSpinnerListener(currenciesSpinner)
+        setSpinnerContent(currenciesSpinner)
     }
 }

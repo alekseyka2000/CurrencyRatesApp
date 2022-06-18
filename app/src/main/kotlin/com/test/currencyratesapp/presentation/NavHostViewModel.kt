@@ -1,8 +1,9 @@
-package com.test.currencyratesapp
+package com.test.currencyratesapp.presentation
 
 import android.view.MenuItem
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.test.currencyratesapp.R
 
 /**
  *  ViewModel for app navigation fragment
@@ -14,7 +15,7 @@ class NavHostViewModel : ViewModel() {
     /**
      * Function handle bottomNavigationView touch
      */
-    fun navigationViewWasClicked(
+    fun wasNavigationViewClicked(
         navController: NavController,
         clickedItem: MenuItem,
         selectedItemId: Int

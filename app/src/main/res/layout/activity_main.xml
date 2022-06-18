@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CurrencyRatesActivity">
+    tools:context=".presentation.CurrencyRatesActivity">
 
     <fragment
         android:id="@+id/cat_fragment"
-        android:name="com.test.currencyratesapp.NavHostFragment"
+        android:name="com.test.currencyratesapp.presentation.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

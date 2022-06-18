@@ -2,7 +2,8 @@ package com.test.currencyratesapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.test.currencyratesapp.PopularCurrencyRatesViewModel
+import com.test.currencyratesapp.presentation.favorite.FavoriteCurrencyRatesViewModel
+import com.test.currencyratesapp.presentation.popular.PopularCurrencyRatesViewModel
 import com.test.data.CurrencyGatewayImpl
 import com.test.data.api.CurrencyApiDataSource
 import com.test.data.api.CurrencyApiDataSourceImpl
@@ -57,4 +58,12 @@ object AppModule {
     @Provides
     fun provideGetCurrenciesUseCase(currencyGateway: CurrencyGateway): GetCurrenciesUseCase =
         GetCurrenciesUseCaseImpl(currencyGateway)
+
+    @Provides
+    fun provideFavoriteCurrencyRatesViewModel(getCurrenciesUseCase: GetCurrenciesUseCase) =
+        FavoriteCurrencyRatesViewModel(getCurrenciesUseCase)
+
+    @Provides
+    fun providePopularCurrencyRatesViewModel(getCurrenciesUseCase: GetCurrenciesUseCase) =
+        PopularCurrencyRatesViewModel(getCurrenciesUseCase)
 }

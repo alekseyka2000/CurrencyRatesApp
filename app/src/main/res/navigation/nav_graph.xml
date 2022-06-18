@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/popularCurrencyRatesFragment"
-        android:name="com.test.currencyratesapp.PopularCurrencyRatesFragment"
+        android:name="com.test.currencyratesapp.presentation.popular.PopularCurrencyRatesFragment"
         android:label="PopularCurrencyRatesFragment" >
         <action
             android:id="@+id/action_popularCurrencyRatesFragment_to_favoriteCurrencyRatesFragment"
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/favoriteCurrencyRatesFragment"
-        android:name="com.test.currencyratesapp.FavoriteCurrencyRatesFragment"
+        android:name="com.test.currencyratesapp.presentation.favorite.FavoriteCurrencyRatesFragment"
         android:label="FavoriteCurrencyRatesFragment" >
         <action
             android:id="@+id/action_favoriteCurrencyRatesFragment_to_popularCurrencyRatesFragment"
@@ -31,6 +31,6 @@
 
     <fragment
         android:id="@+id/currencyRatesFilterFragment"
-        android:name="com.test.currencyratesapp.CurrencyRatesFilterFragment"
+        android:name="com.test.currencyratesapp.presentation.filter.CurrencyRatesFilterFragment"
         android:label="CurrencyRatesFilterFragment" />
 </navigation>

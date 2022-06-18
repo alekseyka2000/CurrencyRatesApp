@@ -1,4 +1,4 @@
-package com.test.currencyratesapp
+package com.test.currencyratesapp.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.test.currencyratesapp.R
 import dagger.hilt.android.scopes.FragmentScoped
 
 /**
@@ -37,7 +38,7 @@ class NavHostFragment : Fragment() {
         bottomNavigationView = view.findViewById(R.id.bottom_navigation)
         bottomNavigationView.setOnItemSelectedListener { item ->
             setCheckableBottomNavigationView()
-            navigationViewModel.navigationViewWasClicked(
+            navigationViewModel.wasNavigationViewClicked(
                 navController,
                 item,
                 bottomNavigationView.selectedItemId

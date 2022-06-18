@@ -14,7 +14,7 @@ class SymbolsDeserializer : JsonDeserializer<Symbols> {
         context: JsonDeserializationContext?
     ): Symbols {
 
-        val symbols = json?.toString()?.replace("\"{} ", "")?.split(",")
+        val symbols = json?.toString()?.replace("[{}\"]".toRegex(), "")?.split(",")
 
         val names = symbols?.map { name ->
             val nameList = name.split(":")
