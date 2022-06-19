@@ -6,7 +6,7 @@ import javax.inject.Singleton
 
 @Singleton
 interface CurrencyGateway {
-
     suspend fun getAvailableCurrencies(): List<CurrencyNameModel>
     suspend fun getCurrencyRates(currencyNameModel: CurrencyNameModel): List<RateModel>
+    fun getFavoriteCurrencyList(): List<String>
 }

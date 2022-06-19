@@ -24,7 +24,9 @@ abstract class BaseCurrencyRatesFragment : Fragment() {
 
     protected abstract val viewModel: BaseCurrencyRatesViewModel
 
-    private val currencyRateListAdapter = CurrencyRateListAdapter()
+    private val currencyRateListAdapter = CurrencyRateListAdapter{ itemBase ->
+        viewModel.wasFavoriteStatusChanged(itemBase)
+    }
 
     protected fun setSpinnerContent(currenciesSpinner: Spinner) {
         lifecycleScope.launchWhenResumed {
@@ -35,6 +37,7 @@ abstract class BaseCurrencyRatesFragment : Fragment() {
                     currencyNameList
                 )
                 currenciesSpinner.adapter = adapter
+                currenciesSpinner.setSelection(adapter.getPosition(viewModel.selectedCurrency))
             }
         }
     }
@@ -49,11 +52,11 @@ abstract class BaseCurrencyRatesFragment : Fragment() {
         }
     }
 
-    protected fun setFilterImageClickListener(filterIcon: ImageView) {
+    protected fun setFilterImageClickListener(filterIcon: ImageView, navigationActionId: Int) {
         filterIcon.setOnClickListener {
             (parentFragment?.parentFragment as NavHostFragment).setNotCheckableBottomNavigationView()
             Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-                .navigate(R.id.action_favoriteCurrencyRatesFragment_to_currencyRatesFilterFragment)
+                .navigate(navigationActionId)
         }
     }
 

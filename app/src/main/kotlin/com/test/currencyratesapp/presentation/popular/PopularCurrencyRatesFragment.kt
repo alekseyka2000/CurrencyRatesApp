@@ -39,7 +39,10 @@ class PopularCurrencyRatesFragment : BaseCurrencyRatesFragment() {
         val currenciesSpinner = view.findViewById<Spinner>(R.id.currenciesSpinner)
         val rateList = view.findViewById<RecyclerView>(R.id.rateList)
 
-        setFilterImageClickListener(filterIcon)
+        setFilterImageClickListener(
+            filterIcon,
+            R.id.action_popularCurrencyRatesFragment_to_currencyRatesFilterFragment
+        )
         setSpinnerListener(currenciesSpinner)
         setSpinnerContent(currenciesSpinner)
         setRecyclerView(rateList)

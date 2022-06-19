@@ -4,6 +4,7 @@ import com.test.data.api.CurrencyApiDataSource
 import com.test.data.api.mapper.CurrencyRatesDtoToCurrencyMapper
 import com.test.data.db.CurrenciesDao
 import com.test.data.db.entity.Currency
+import com.test.data.preference.PreferencesProvider
 import com.test.domain.CurrencyGateway
 import com.test.domain.entity.CurrencyNameModel
 import com.test.domain.entity.RateModel
@@ -17,10 +18,12 @@ import javax.inject.Inject
 
 class CurrencyGatewayImpl @Inject constructor(
     private val currencyDataSource: CurrencyApiDataSource,
-    private val currencyDao: CurrenciesDao
+    private val currencyDao: CurrenciesDao,
+    private val preferencesProvider: PreferencesProvider
 ) : CurrencyGateway {
 
     private var currentData: String? = null
+
     override suspend fun getAvailableCurrencies(): List<CurrencyNameModel> {
         val daoResult = currencyDao.getCurrencies()
         return if (daoResult.isEmpty()) {
@@ -35,7 +38,7 @@ class CurrencyGatewayImpl @Inject constructor(
 
     override suspend fun getCurrencyRates(currencyNameModel: CurrencyNameModel): List<RateModel> {
         val daoResult = currencyDao.getCurrencyRates(currencyNameModel.base)
-        return if (daoResult.date == currentData) {
+        return if (daoResult.date == currentData && daoResult.rates.isNotEmpty()) {
             daoResult.rates.map { RateModel(it.base, it.rate) }
         } else {
             val apiResult = currencyDataSource.getCurrencyRates(currencyNameModel.base)
@@ -46,4 +49,6 @@ class CurrencyGatewayImpl @Inject constructor(
             apiResult.rates.rates.map { RateModel(it.base, it.rate) }
         }
     }
+
+    override fun getFavoriteCurrencyList() = preferencesProvider.getFavoriteCurrencyRatesBase()
 }

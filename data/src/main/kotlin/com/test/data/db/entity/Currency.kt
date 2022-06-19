@@ -11,7 +11,7 @@ data class Currency(
     @PrimaryKey @ColumnInfo(name = "currency_base") val base: String,
     val name: String,
     val date: String? = null,
-    val rates: List<Rate> = listOf()
+    val rates: List<Rate> = emptyList()
 )
 
 data class Rate(

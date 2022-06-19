@@ -1,6 +1,5 @@
 package com.test.domain
 
-import android.util.Log
 import com.test.domain.entity.CurrencyNameModel
 import com.test.domain.entity.RateModel
 import javax.inject.Inject
@@ -13,13 +12,13 @@ import javax.inject.Singleton
  */
 
 @Singleton
-class GetPopularCurrencyRatesUseCaseImpl @Inject constructor(
-    private val currencyGateway: CurrencyGateway
-) : GetPopularCurrencyRatesUseCase {
+class GetFavoriteCurrencyRatesUseCaseImpl @Inject constructor(
+    private val currencyGateway: CurrencyGateway,
+) : GetFavoriteCurrencyRatesUseCase {
 
-    private val popularCurrencyList = listOf("USD", "EUR", "RUB", "BYN")
+    private val popularCurrencyList = currencyGateway.getFavoriteCurrencyList()
 
-    override suspend fun getPopularCurrencyRates(model: CurrencyNameModel): List<RateModel> {
+    override suspend fun getFavoriteCurrencyRates(model: CurrencyNameModel): List<RateModel> {
         return currencyGateway.getCurrencyRates(model)
             .filter { popularCurrencyList.contains(it.base.uppercase()) }
     }

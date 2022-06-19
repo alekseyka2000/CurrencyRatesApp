@@ -1,6 +1,7 @@
 package com.test.currencyratesapp.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.test.currencyratesapp.presentation.favorite.FavoriteCurrencyRatesViewModel
 import com.test.currencyratesapp.presentation.popular.PopularCurrencyRatesViewModel
@@ -10,6 +11,8 @@ import com.test.data.api.CurrencyApiDataSourceImpl
 import com.test.data.api.CurrencyApiService
 import com.test.data.db.CurrenciesDao
 import com.test.data.db.CurrencyRoomDB
+import com.test.data.preference.PreferencesProvider
+import com.test.data.preference.PreferencesProviderImpl
 import com.test.domain.*
 import dagger.Module
 import dagger.Provides
@@ -22,20 +25,16 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    private const val PREFS_NAME = "sharedPreferences"
+
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext appContext: Context): CurrencyRoomDB {
-        return Room.databaseBuilder(
-            appContext,
-            CurrencyRoomDB::class.java,
-            "RssReader"
-        ).build()
+        return Room.databaseBuilder(appContext, CurrencyRoomDB::class.java, "RssReader").build()
     }
 
     @Provides
-    fun provideCurrenciesDao(db: CurrencyRoomDB): CurrenciesDao {
-        return db.currenciesDao()
-    }
+    fun provideCurrenciesDao(db: CurrencyRoomDB) = db.currenciesDao()
 
     @Provides
     fun provideCurrencyApiService() = CurrencyApiService()
@@ -47,12 +46,21 @@ object AppModule {
     ): CurrencyApiDataSource =
         CurrencyApiDataSourceImpl(appContext, currencyApiService)
 
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext appContext: Context): SharedPreferences =
+        appContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
+    @Provides
+    fun providePreferenceManager(preferences: SharedPreferences): PreferencesProvider =
+        PreferencesProviderImpl(preferences)
+
     @Singleton
     @Provides
     fun provideCurrencyGateway(
         dataSource: CurrencyApiDataSource,
-        dao: CurrenciesDao
-    ): CurrencyGateway = CurrencyGatewayImpl(dataSource, dao)
+        dao: CurrenciesDao,
+        preferencesProvider: PreferencesProvider
+    ): CurrencyGateway = CurrencyGatewayImpl(dataSource, dao, preferencesProvider)
 
     @Provides
     fun provideGetCurrenciesUseCase(currencyGateway: CurrencyGateway): GetCurrenciesUseCase =
@@ -63,12 +71,25 @@ object AppModule {
         GetPopularCurrencyRatesUseCaseImpl(currencyGateway)
 
     @Provides
-    fun provideFavoriteCurrencyRatesViewModel(getCurrenciesUseCase: GetCurrenciesUseCase) =
-        FavoriteCurrencyRatesViewModel(getCurrenciesUseCase)
+    fun provideGetFavoriteCurrencyRatesUseCase(currencyGateway: CurrencyGateway): GetFavoriteCurrencyRatesUseCase =
+        GetFavoriteCurrencyRatesUseCaseImpl(currencyGateway)
+
+    @Provides
+    fun provideFavoriteCurrencyRatesViewModel(
+        getCurrenciesUseCase: GetCurrenciesUseCase,
+        preferencesProvider: PreferencesProvider,
+        provideGetFavoriteCurrencyRatesUseCase: GetFavoriteCurrencyRatesUseCase
+    ) =
+        FavoriteCurrencyRatesViewModel(getCurrenciesUseCase, preferencesProvider, provideGetFavoriteCurrencyRatesUseCase)
 
     @Provides
     fun providePopularCurrencyRatesViewModel(
         getCurrenciesUseCase: GetCurrenciesUseCase,
-        getPopularCurrencyRatesUseCase: GetPopularCurrencyRatesUseCase
-    ) = PopularCurrencyRatesViewModel(getCurrenciesUseCase, getPopularCurrencyRatesUseCase)
+        getPopularCurrencyRatesUseCase: GetPopularCurrencyRatesUseCase,
+        preferencesProvider: PreferencesProvider
+    ) = PopularCurrencyRatesViewModel(
+        getCurrenciesUseCase,
+        getPopularCurrencyRatesUseCase,
+        preferencesProvider
+    )
 }
