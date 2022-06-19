@@ -35,13 +35,15 @@ class CurrencyGatewayImpl @Inject constructor(
 
     override suspend fun getCurrencyRates(currencyNameModel: CurrencyNameModel): List<RateModel> {
         val daoResult = currencyDao.getCurrencyRates(currencyNameModel.base)
-        if (daoResult.date == null) {
+        return if (daoResult.date == currentData) {
+            daoResult.rates.map { RateModel(it.base, it.rate) }
+        } else {
             val apiResult = currencyDataSource.getCurrencyRates(currencyNameModel.base)
             currencyDao.insert(
                 CurrencyRatesDtoToCurrencyMapper().invoke(apiResult, currencyNameModel)
             )
-            return apiResult.rates.rates.map{ RateModel(it.base, it.rate) }
+            currentData = apiResult.date
+            apiResult.rates.rates.map { RateModel(it.base, it.rate) }
         }
-        return listOf()
     }
 }

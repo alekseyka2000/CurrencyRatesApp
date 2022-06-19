@@ -3,6 +3,7 @@ package com.test.currencyratesapp.presentation
 import androidx.lifecycle.ViewModel
 import com.test.domain.GetCurrenciesUseCase
 import com.test.domain.entity.CurrencyNameModel
+import com.test.domain.entity.RateModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -15,6 +16,10 @@ abstract class BaseCurrencyRatesViewModel(
 ) : ViewModel() {
 
     protected lateinit var currencyNameList: List<CurrencyNameModel>
+
+    protected val currencyRatesMutableStateFlow = MutableStateFlow<List<RateModel>>(emptyList())
+    val currencyRatesStateFlow: StateFlow<List<RateModel>> = currencyRatesMutableStateFlow
+
     private val currencyNameListMutableStateFlow = MutableStateFlow<List<String>>(emptyList())
     val currencyNameListStateFlow: StateFlow<List<String>> = currencyNameListMutableStateFlow
 

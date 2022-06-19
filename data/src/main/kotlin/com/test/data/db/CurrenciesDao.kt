@@ -11,7 +11,7 @@ interface CurrenciesDao {
     @Query("SELECT currency_base, name FROM Currency")
     fun getCurrencies(): List<Name>
 
-    @Query("SELECT FIRST (*) FROM Currency WHERE currency_base = :base")
+    @Query("SELECT * FROM Currency WHERE currency_base = :base")
     fun getCurrencyRates(base: String): Currency
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

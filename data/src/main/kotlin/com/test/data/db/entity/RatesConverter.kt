@@ -11,9 +11,13 @@ class RatesConverter {
 
     @TypeConverter
     fun toRates(data: String): List<Rate> {
-        return data.split(",").map {
-            val rate = it.split("-")
-            Rate(rate.first(), rate.last().toDouble())
+        return if (data == "") {
+            listOf()
+        } else {
+            data.split(",").map {
+                val rate = it.split("-")
+                Rate(rate.first(), rate.last().toDouble())
+            }
         }
     }
 }

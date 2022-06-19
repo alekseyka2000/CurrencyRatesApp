@@ -10,9 +10,7 @@ import com.test.data.api.CurrencyApiDataSourceImpl
 import com.test.data.api.CurrencyApiService
 import com.test.data.db.CurrenciesDao
 import com.test.data.db.CurrencyRoomDB
-import com.test.domain.CurrencyGateway
-import com.test.domain.GetCurrenciesUseCase
-import com.test.domain.GetCurrenciesUseCaseImpl
+import com.test.domain.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,7 +44,7 @@ object AppModule {
     fun provideCurrencyApiDataSource(
         @ApplicationContext appContext: Context,
         currencyApiService: CurrencyApiService
-        ): CurrencyApiDataSource =
+    ): CurrencyApiDataSource =
         CurrencyApiDataSourceImpl(appContext, currencyApiService)
 
     @Singleton
@@ -61,10 +59,16 @@ object AppModule {
         GetCurrenciesUseCaseImpl(currencyGateway)
 
     @Provides
+    fun provideGetPopularCurrencyRatesUseCaseImpl(currencyGateway: CurrencyGateway): GetPopularCurrencyRatesUseCase =
+        GetPopularCurrencyRatesUseCaseImpl(currencyGateway)
+
+    @Provides
     fun provideFavoriteCurrencyRatesViewModel(getCurrenciesUseCase: GetCurrenciesUseCase) =
         FavoriteCurrencyRatesViewModel(getCurrenciesUseCase)
 
     @Provides
-    fun providePopularCurrencyRatesViewModel(getCurrenciesUseCase: GetCurrenciesUseCase) =
-        PopularCurrencyRatesViewModel(getCurrenciesUseCase)
+    fun providePopularCurrencyRatesViewModel(
+        getCurrenciesUseCase: GetCurrenciesUseCase,
+        getPopularCurrencyRatesUseCase: GetPopularCurrencyRatesUseCase
+    ) = PopularCurrencyRatesViewModel(getCurrenciesUseCase, getPopularCurrencyRatesUseCase)
 }

@@ -42,5 +42,6 @@ class PopularCurrencyRatesFragment : BaseCurrencyRatesFragment() {
         setFilterImageClickListener(filterIcon)
         setSpinnerListener(currenciesSpinner)
         setSpinnerContent(currenciesSpinner)
+        setRecyclerView(rateList)
     }
 }
