@@ -13,7 +13,9 @@ import com.test.currencyratesapp.R
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * A simple [Fragment] subclass.
+ * Fragment for setting currency rate list filters
+ *
+ *  @author YarakhovichAA
  */
 
 @AndroidEntryPoint
@@ -32,13 +34,13 @@ class CurrencyRatesFilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<RadioGroup>(R.id.filterTypeRadioGroup).apply {
             check(viewModel.savedFilterTypeId)
-            setOnCheckedChangeListener { _, checkedId, ->
+            setOnCheckedChangeListener { _, checkedId ->
                 viewModel.wasFilterTypeSelected(checkedId)
             }
         }
         view.findViewById<RadioGroup>(R.id.filterOrderRadioGroup).apply {
             check(viewModel.savedFilterOrderId)
-            setOnCheckedChangeListener { _, checkedId, ->
+            setOnCheckedChangeListener { _, checkedId ->
                 viewModel.wasOrderFilterSelected(checkedId)
             }
         }

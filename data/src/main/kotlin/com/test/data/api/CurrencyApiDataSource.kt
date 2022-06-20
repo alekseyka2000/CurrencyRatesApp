@@ -2,9 +2,11 @@ package com.test.data.api
 
 import com.test.data.api.entity.AvailableCurrencyDto
 import com.test.data.api.entity.CurrencyRatesDto
-import javax.inject.Singleton
 
-@Singleton
+/**
+ * Network data source for getting currency rates data
+ */
+
 interface CurrencyApiDataSource {
 
     suspend fun getAvailableCurrencies(): AvailableCurrencyDto

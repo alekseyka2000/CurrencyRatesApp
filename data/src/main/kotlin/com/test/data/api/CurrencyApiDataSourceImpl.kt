@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class CurrencyApiDataSourceImpl @Inject constructor(
     applicationContext: Context,
     currencyApiService: CurrencyApiService

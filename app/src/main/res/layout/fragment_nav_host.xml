@@ -21,7 +21,7 @@
         style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
+        android:paddingBottom="@dimen/standard_padding"
         android:clipToPadding="false"
         app:backgroundTint="@color/purple_700"
         app:itemTextAppearanceActive="@style/navTextActive"

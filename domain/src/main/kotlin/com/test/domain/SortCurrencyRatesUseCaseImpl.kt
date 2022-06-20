@@ -3,9 +3,13 @@ package com.test.domain
 import com.test.domain.entity.RateModel
 import com.test.domain.enum.Filters
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
+/**
+ * Case for sorting currency list
+ *
+ *  @author YarakhovichAA
+ */
+
 class SortCurrencyRatesUseCaseImpl @Inject constructor(
     private val filtersGateway: FiltersGateway
 ) : SortCurrencyRatesUseCase {

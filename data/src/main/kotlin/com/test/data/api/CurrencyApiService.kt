@@ -14,7 +14,6 @@ import com.test.data.api.entity.Symbols
 import retrofit2.Converter
 import javax.inject.Singleton
 
-@Singleton
 class CurrencyApiService {
 
     companion object {

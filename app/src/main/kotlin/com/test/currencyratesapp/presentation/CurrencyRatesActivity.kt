@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.test.currencyratesapp.R
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ *  @author YarakhovichAA
+ */
+
 @AndroidEntryPoint
 class CurrencyRatesActivity : AppCompatActivity() {
 

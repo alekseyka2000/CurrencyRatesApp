@@ -12,6 +12,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ *  @author YarakhovichAA
+ */
+
 @HiltViewModel
 class FavoriteCurrencyRatesViewModel @Inject constructor(
     getCurrenciesUseCase: GetCurrenciesUseCase,

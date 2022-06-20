@@ -7,6 +7,10 @@ import com.test.data.preference.PreferencesProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+/**
+ *  @author YarakhovichAA
+ */
+
 @HiltViewModel
 class CurrencyRatesFilterViewModel @Inject constructor(
     private val preferencesProvider: PreferencesProvider

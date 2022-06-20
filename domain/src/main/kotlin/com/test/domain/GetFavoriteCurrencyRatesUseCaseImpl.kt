@@ -3,7 +3,6 @@ package com.test.domain
 import com.test.domain.entity.CurrencyNameModel
 import com.test.domain.entity.RateModel
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Use case provide available currencies for show rates
@@ -11,7 +10,6 @@ import javax.inject.Singleton
  *  @author YarakhovichAA
  */
 
-@Singleton
 class GetFavoriteCurrencyRatesUseCaseImpl @Inject constructor(
     private val sortCurrencyRatesUseCase: SortCurrencyRatesUseCase,
     private val currencyGateway: CurrencyGateway

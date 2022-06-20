@@ -5,7 +5,7 @@ import com.test.domain.FiltersGateway
 import javax.inject.Inject
 
 /**
- * Class provide currencies data
+ * Class provide filters data
  *
  *  @author YarakhovichAA
  */

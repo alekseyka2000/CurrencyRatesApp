@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="16dp">
+        android:layout_margin="@dimen/standard_padding">
 
         <Spinner
             android:id="@+id/currenciesSpinner"
@@ -22,7 +22,7 @@
             android:id="@+id/filterIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/standard_padding"
             android:src="@drawable/ic_filter"
             android:contentDescription="@string/filter" />
     </LinearLayout>
@@ -32,6 +32,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginHorizontal="16dp"/>
+        android:layout_marginHorizontal="@dimen/standard_padding"/>
 
 </LinearLayout>

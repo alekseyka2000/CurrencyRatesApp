@@ -1,8 +1,12 @@
 package com.test.currencyratesapp.presentation
 
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.Toast
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -12,7 +16,7 @@ import com.test.currencyratesapp.R
 import kotlinx.coroutines.flow.collect
 
 /**
- * Fragment allow to get currency list
+ * Fragment allow to base functions for currency rates fragments
  *
  *  @author YarakhovichAA
  */

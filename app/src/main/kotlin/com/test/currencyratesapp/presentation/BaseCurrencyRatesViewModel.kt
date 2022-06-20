@@ -10,6 +10,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+/**
+ * View model allow to base functions for currency rates view model
+ *
+ *  @author YarakhovichAA
+ */
+
 abstract class BaseCurrencyRatesViewModel(
     private val getCurrenciesUseCase: GetCurrenciesUseCase,
     private val currencyGateway: CurrencyGateway

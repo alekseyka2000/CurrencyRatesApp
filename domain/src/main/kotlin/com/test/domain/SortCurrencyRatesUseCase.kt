@@ -1,10 +1,9 @@
 package com.test.domain
 
 import com.test.domain.entity.RateModel
-import javax.inject.Singleton
 
-@Singleton
 interface SortCurrencyRatesUseCase {
 
+    /** sorting [rateList] by chosen filters*/
     fun sortCurrencyRates(rateList: List<RateModel>): List<RateModel>
 }

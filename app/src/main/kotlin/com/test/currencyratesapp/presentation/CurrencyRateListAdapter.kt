@@ -5,6 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ *  @author YarakhovichAA
+ */
+
 class CurrencyRateListAdapter(private val clickAction: (String) -> Unit) :
     RecyclerView.Adapter<CurrencyRateViewHolder>() {
 

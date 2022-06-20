@@ -7,6 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.test.currencyratesapp.R
 
+/**
+ *  @author YarakhovichAA
+ */
+
 class CurrencyRateViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
     RecyclerView.ViewHolder(inflater.inflate(R.layout.currency_rate_item, parent, false)) {
     private var currencyNameText: TextView = itemView.findViewById(R.id.currencyName)

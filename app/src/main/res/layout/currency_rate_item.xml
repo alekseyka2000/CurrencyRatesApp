@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="4dp"
+    android:layout_marginHorizontal="@dimen/standard_padding"
+    android:layout_marginVertical="@dimen/quarter_of_standard_padding"
     android:orientation="horizontal">
 
     <TextView
@@ -27,7 +27,7 @@
         android:id="@+id/favoriteIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/half_of_standard_padding"
         android:button="@drawable/selector_checkbox" />
 
 </LinearLayout>
