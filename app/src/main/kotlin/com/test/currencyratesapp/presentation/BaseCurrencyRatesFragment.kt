@@ -1,11 +1,8 @@
 package com.test.currencyratesapp.presentation
 
 import android.view.View
-import android.widget.AdapterView
+import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -24,13 +21,14 @@ abstract class BaseCurrencyRatesFragment : Fragment() {
 
     protected abstract val viewModel: BaseCurrencyRatesViewModel
 
-    private val currencyRateListAdapter = CurrencyRateListAdapter{ itemBase ->
+    private val currencyRateListAdapter = CurrencyRateListAdapter { itemBase ->
         viewModel.wasFavoriteStatusChanged(itemBase)
     }
 
     override fun onStart() {
         super.onStart()
         viewModel.wasScreenStarted()
+        setErrorHandler()
     }
 
     protected fun setSpinnerContent(currenciesSpinner: Spinner) {
@@ -73,6 +71,14 @@ abstract class BaseCurrencyRatesFragment : Fragment() {
         lifecycleScope.launchWhenResumed {
             viewModel.currencyRatesStateFlow.collect { currencyRateList ->
                 currencyRateListAdapter.setList(currencyRateList)
+            }
+        }
+    }
+
+    private fun setErrorHandler() {
+        lifecycleScope.launchWhenResumed {
+            viewModel.errorStateFlow.collect { errorMessage ->
+                errorMessage?.let { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() }
             }
         }
     }
