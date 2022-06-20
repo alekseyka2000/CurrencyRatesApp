@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">CurrencyRatesApp</string>
     <string name="popular">Популярное</string>
-    <string name="favorite">Избраное</string>
-    <string name="filter">filter</string>
+    <string name="favorite">Избранное</string>
+    <string name="filter">Фильтр</string>
+    <string name="sort_by">Варианты сортировки</string>
+    <string name="ascending">По возрастанию</string>
+    <string name="descending">По убыванию</string>
+    <string name="order">В порядке</string>
+    <string name="by_value">По значению</string>
+    <string name="alphabetically">По алфавиту</string>
+    <string name="do_not_apply">Не применять</string>
 </resources>

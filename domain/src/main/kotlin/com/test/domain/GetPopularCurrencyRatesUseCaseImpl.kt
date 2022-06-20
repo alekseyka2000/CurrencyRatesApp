@@ -14,13 +14,15 @@ import javax.inject.Singleton
 
 @Singleton
 class GetPopularCurrencyRatesUseCaseImpl @Inject constructor(
+    private val sortCurrencyRatesUseCase: SortCurrencyRatesUseCase,
     private val currencyGateway: CurrencyGateway
 ) : GetPopularCurrencyRatesUseCase {
 
     private val popularCurrencyList = listOf("USD", "EUR", "RUB", "BYN")
 
     override suspend fun getPopularCurrencyRates(model: CurrencyNameModel): List<RateModel> {
-        return currencyGateway.getCurrencyRates(model)
+        val rateList = currencyGateway.getCurrencyRates(model)
             .filter { popularCurrencyList.contains(it.base.uppercase()) }
+        return sortCurrencyRatesUseCase.sortCurrencyRates(rateList)
     }
 }

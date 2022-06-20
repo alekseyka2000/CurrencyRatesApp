@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.test.currencyratesapp.R
 import dagger.hilt.android.scopes.FragmentScoped
 
+
 /**
  * Fragment for navigation in the app
  *

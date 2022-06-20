@@ -50,5 +50,15 @@ class CurrencyGatewayImpl @Inject constructor(
         }
     }
 
+    override fun getSelectedCurrency() = preferencesProvider.getSelectedCurrency()
+
+    override fun saveSelectedCurrency(selectedCurrency: CurrencyNameModel) {
+        preferencesProvider.saveSelectedCurrency(selectedCurrency)
+    }
+
     override fun getFavoriteCurrencyList() = preferencesProvider.getFavoriteCurrencyRatesBase()
+
+    override fun saveFavoriteCurrencyRatesBase(favoriteList: List<String>) {
+        preferencesProvider.saveFavoriteCurrencyRatesBase(favoriteList)
+    }
 }

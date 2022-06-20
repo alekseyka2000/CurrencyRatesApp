@@ -1,7 +1,7 @@
 package com.test.currencyratesapp.presentation
 
 import androidx.lifecycle.ViewModel
-import com.test.data.preference.PreferencesProvider
+import com.test.domain.CurrencyGateway
 import com.test.domain.GetCurrenciesUseCase
 import com.test.domain.entity.CurrencyNameModel
 import kotlinx.coroutines.CoroutineScope
@@ -13,14 +13,14 @@ import kotlinx.coroutines.launch
 
 abstract class BaseCurrencyRatesViewModel(
     private val getCurrenciesUseCase: GetCurrenciesUseCase,
-    private val preferencesProvider: PreferencesProvider
+    private val currencyGateway: CurrencyGateway
 ) : ViewModel() {
 
-    var selectedCurrency = preferencesProvider.getSelectedCurrency()
+    var selectedCurrency = currencyGateway.getSelectedCurrency()
         protected set
 
     protected var favoriteRatesBaseList =
-        preferencesProvider.getFavoriteCurrencyRatesBase().toMutableList()
+        currencyGateway.getFavoriteCurrencyList().toMutableList()
 
     protected lateinit var currencyNameList: List<CurrencyNameModel>
 
@@ -32,11 +32,16 @@ abstract class BaseCurrencyRatesViewModel(
     private val currencyNameListMutableStateFlow = MutableStateFlow<List<String>>(emptyList())
     val currencyNameListStateFlow: StateFlow<List<String>> = currencyNameListMutableStateFlow
 
-    abstract fun getRateForNewSelectedCurrency(position: Int)
+
+    abstract fun getNewRateList(model: CurrencyNameModel)
 
     fun wasCurrencySelected(position: Int) {
         saveNewSelectedCurrency(position)
-        getRateForNewSelectedCurrency(position)
+        getNewRateList(currencyNameList[position])
+    }
+
+    fun wasScreenStarted() {
+        currencyGateway.getSelectedCurrency()?.let { getNewRateList(it) }
     }
 
     fun wasFavoriteStatusChanged(clickedItemBase: String) {
@@ -45,7 +50,7 @@ abstract class BaseCurrencyRatesViewModel(
         } else {
             favoriteRatesBaseList.add(clickedItemBase)
         }
-        preferencesProvider.saveFavoriteCurrencyRatesBase(favoriteRatesBaseList)
+        currencyGateway.saveFavoriteCurrencyRatesBase(favoriteRatesBaseList)
     }
 
     protected fun getCurrencyNames() {
@@ -57,8 +62,8 @@ abstract class BaseCurrencyRatesViewModel(
     }
 
     private fun saveNewSelectedCurrency(position: Int) {
-        val newSelectedItem = currencyNameList[position].name
-        preferencesProvider.saveSelectedCurrency(currencyNameList[position].name)
+        val newSelectedItem = currencyNameList[position]
+        currencyGateway.saveSelectedCurrency(currencyNameList[position])
         selectedCurrency = newSelectedItem
     }
 }

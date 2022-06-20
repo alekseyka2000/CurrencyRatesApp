@@ -28,6 +28,11 @@ abstract class BaseCurrencyRatesFragment : Fragment() {
         viewModel.wasFavoriteStatusChanged(itemBase)
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.wasScreenStarted()
+    }
+
     protected fun setSpinnerContent(currenciesSpinner: Spinner) {
         lifecycleScope.launchWhenResumed {
             viewModel.currencyNameListStateFlow.collect { currencyNameList ->
@@ -37,7 +42,7 @@ abstract class BaseCurrencyRatesFragment : Fragment() {
                     currencyNameList
                 )
                 currenciesSpinner.adapter = adapter
-                currenciesSpinner.setSelection(adapter.getPosition(viewModel.selectedCurrency))
+                currenciesSpinner.setSelection(adapter.getPosition(viewModel.selectedCurrency?.name))
             }
         }
     }

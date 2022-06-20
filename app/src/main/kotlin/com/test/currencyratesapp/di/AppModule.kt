@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.test.currencyratesapp.presentation.favorite.FavoriteCurrencyRatesViewModel
 import com.test.currencyratesapp.presentation.popular.PopularCurrencyRatesViewModel
 import com.test.data.CurrencyGatewayImpl
+import com.test.data.FiltersGatewayImpl
 import com.test.data.api.CurrencyApiDataSource
 import com.test.data.api.CurrencyApiDataSourceImpl
 import com.test.data.api.CurrencyApiService
@@ -63,33 +64,51 @@ object AppModule {
     ): CurrencyGateway = CurrencyGatewayImpl(dataSource, dao, preferencesProvider)
 
     @Provides
+    fun provideFiltersGateway(preferencesProvider: PreferencesProvider): FiltersGateway =
+        FiltersGatewayImpl(preferencesProvider)
+
+    @Provides
     fun provideGetCurrenciesUseCase(currencyGateway: CurrencyGateway): GetCurrenciesUseCase =
         GetCurrenciesUseCaseImpl(currencyGateway)
 
     @Provides
-    fun provideGetPopularCurrencyRatesUseCaseImpl(currencyGateway: CurrencyGateway): GetPopularCurrencyRatesUseCase =
-        GetPopularCurrencyRatesUseCaseImpl(currencyGateway)
+    fun provideSortCurrencyRatesUseCase(filtersGateway: FiltersGateway): SortCurrencyRatesUseCase =
+        SortCurrencyRatesUseCaseImpl(filtersGateway)
 
     @Provides
-    fun provideGetFavoriteCurrencyRatesUseCase(currencyGateway: CurrencyGateway): GetFavoriteCurrencyRatesUseCase =
-        GetFavoriteCurrencyRatesUseCaseImpl(currencyGateway)
+    fun provideGetPopularCurrencyRatesUseCase(
+        sortCurrencyRatesUseCase: SortCurrencyRatesUseCaseImpl,
+        currencyGateway: CurrencyGateway
+    ): GetPopularCurrencyRatesUseCase =
+        GetPopularCurrencyRatesUseCaseImpl(sortCurrencyRatesUseCase, currencyGateway)
+
+    @Provides
+    fun provideGetFavoriteCurrencyRatesUseCase(
+        sortCurrencyRatesUseCase: SortCurrencyRatesUseCaseImpl,
+        currencyGateway: CurrencyGateway
+    ): GetFavoriteCurrencyRatesUseCase =
+        GetFavoriteCurrencyRatesUseCaseImpl(sortCurrencyRatesUseCase, currencyGateway)
 
     @Provides
     fun provideFavoriteCurrencyRatesViewModel(
         getCurrenciesUseCase: GetCurrenciesUseCase,
-        preferencesProvider: PreferencesProvider,
+        currencyGateway: CurrencyGateway,
         provideGetFavoriteCurrencyRatesUseCase: GetFavoriteCurrencyRatesUseCase
     ) =
-        FavoriteCurrencyRatesViewModel(getCurrenciesUseCase, preferencesProvider, provideGetFavoriteCurrencyRatesUseCase)
+        FavoriteCurrencyRatesViewModel(
+            getCurrenciesUseCase,
+            currencyGateway,
+            provideGetFavoriteCurrencyRatesUseCase
+        )
 
     @Provides
     fun providePopularCurrencyRatesViewModel(
         getCurrenciesUseCase: GetCurrenciesUseCase,
+        currencyGateway: CurrencyGateway,
         getPopularCurrencyRatesUseCase: GetPopularCurrencyRatesUseCase,
-        preferencesProvider: PreferencesProvider
     ) = PopularCurrencyRatesViewModel(
         getCurrenciesUseCase,
-        getPopularCurrencyRatesUseCase,
-        preferencesProvider
+        currencyGateway,
+        getPopularCurrencyRatesUseCase
     )
 }

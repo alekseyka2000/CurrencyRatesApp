@@ -22,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class FavoriteCurrencyRatesFragment : BaseCurrencyRatesFragment() {
 
     override val viewModel: FavoriteCurrencyRatesViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
